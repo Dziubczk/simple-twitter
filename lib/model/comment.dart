@@ -1,9 +1,9 @@
 class Comment {
-  int postId;
-  int id;
-  String name;
-  String email;
-  String body;
+  final int postId;
+  final int id;
+  final String name;
+  final String email;
+  final String body;
 
   Comment({this.postId, this.id, this.name, this.email, this.body});
 
@@ -15,5 +15,14 @@ class Comment {
       email: json['email'],
       body: json['body'],
     );
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'postId': postId,
+      'id': id,
+      'name': name,
+      'email': email,
+      'body': body,
+    };
   }
 }

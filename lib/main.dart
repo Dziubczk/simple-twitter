@@ -8,10 +8,11 @@ import 'package:mytwitter/model/comment.dart';
 import 'package:mytwitter/model/mockDB.dart';
 import 'package:mytwitter/model/user_post.dart';
 import 'package:mytwitter/pages/home.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 _fetchData() async {
-  final response =
-  await http.get("https://jsonplaceholder.typicode.com/posts");
+  final response = await http.get("https://jsonplaceholder.typicode.com/posts");
   if (response.statusCode == 200) {
     CustomDataBase.tweets = (json.decode(response.body) as List)
         .map((data) => new UserPost.fromJson(data))
@@ -29,8 +30,10 @@ _fetchData() async {
   }
 }
 
-void main() {
+void main() async {
   _fetchData();
+  WidgetsFlutterBinding.ensureInitialized();
+  CustomDataBase.initDataBase();
   runApp(MyApp());
 }
 

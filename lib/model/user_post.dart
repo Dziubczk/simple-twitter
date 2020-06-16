@@ -2,11 +2,11 @@ import 'package:mytwitter/model/comment.dart';
 import 'package:mytwitter/model/mockDB.dart';
 
 class UserPost {
-  int id;
-  String title;
-  String body;
-  int userId;
-  List<Comment> comments;
+  final int id;
+  final String title;
+  final String body;
+  final int userId;
+  //List<Comment> comments;
 
   UserPost({this.id, this.title, this.body, this.userId});
 
@@ -19,5 +19,14 @@ class UserPost {
     );
   }
 
-  void addCommentsFromDB() {}
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'body': body,
+      'userId': userId,
+    };
+  }
+
+  //void addCommentsFromDB() {}
 }

@@ -18,6 +18,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<UserPost> curTweets;
   var isLoading = false;
+  var isLoadingDB = false;
+  List<UserPost> fromDBTweets;
 
   _fetchData() async {
     setState(() {
@@ -30,6 +32,9 @@ class _MyHomePageState extends State<MyHomePage> {
           .map((data) => new UserPost.fromJson(data))
           .toList();
       setState(() {
+        curTweets.forEach((element) {
+          CustomDataBase.insertTweet(element);
+        });
         isLoading = false;
       });
     } else {
@@ -37,10 +42,23 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  _readFromDB() async {
+    setState(() {
+      isLoadingDB = true;
+    });
+    await _fetchData();
+    fromDBTweets = await CustomDataBase.getTweets();
+    if(fromDBTweets!=null) {
+      setState(() {
+        isLoadingDB = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    _readFromDB();
   }
 
   @override
@@ -58,18 +76,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         height: 8000,
-        child: isLoading
+        child: isLoadingDB
             ? Center(
                 child: CircularProgressIndicator(),
               )
             ///**
             : ListView.builder(
             scrollDirection: Axis.vertical,
-            itemCount: curTweets.length,
+            itemCount: fromDBTweets.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
                 child: ListTile(
-                  title: new Tweet(curTweets[index]),
+                  title: new Tweet(fromDBTweets[index]),
                 ),
               );})///*/
             /**

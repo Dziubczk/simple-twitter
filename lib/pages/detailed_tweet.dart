@@ -52,6 +52,7 @@ class _DetailedTweetState extends State<DetailedTweet> {
         title: Text(widget._userPost.title),
       ),
       body: Container(
+        height: 8000,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("images/background.jpg"),
@@ -72,7 +73,7 @@ class _DetailedTweetState extends State<DetailedTweet> {
                   style: TextStyle(fontSize: 24),
                 )),
             Container(
-              height: 400,
+              height: 300,
               child: isLoading
                   ? Center(
                       child: CircularProgressIndicator(),
