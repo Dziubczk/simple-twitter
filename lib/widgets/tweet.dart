@@ -22,12 +22,12 @@ class _TweetState extends State<Tweet> {
       child: Container(
         width: 400,
         //height: 100,
-        color: Colors.green[200],
-        margin: EdgeInsets.all(5.0),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(widget._userPost.title, style: TextStyle(fontSize: 24),),
+        padding: EdgeInsets.all(6.0),
+        decoration: BoxDecoration(
+          color: Color.fromARGB(200, 255, 255, 255),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
+        child: Text(widget._userPost.title, style: TextStyle(fontSize: 24),),
       ),
     );
   }

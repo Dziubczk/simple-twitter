@@ -24,23 +24,17 @@ class _MyHomePageState extends State<MyHomePage> {
       isLoading = true;
     });
     final response =
-    await http.get("https://jsonplaceholder.typicode.com/posts");
+        await http.get("https://jsonplaceholder.typicode.com/posts");
     if (response.statusCode == 200) {
       curTweets = (json.decode(response.body) as List)
-                .map((data) => new UserPost.fromJson(data))
-                .toList();
+          .map((data) => new UserPost.fromJson(data))
+          .toList();
       setState(() {
         isLoading = false;
       });
     } else {
       throw Exception('Failed to load posts');
     }
-  }
-
-  void _addTweet(UserPost tweet) {
-    setState(() {
-      CustomDataBase.tweets.add(tweet);
-    });
   }
 
   @override
@@ -52,47 +46,44 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: Colors.deepPurple[200],
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5.0),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         height: 8000,
         child: isLoading
             ? Center(
-          child: CircularProgressIndicator(),
-        )
+                child: CircularProgressIndicator(),
+              )
+            ///**
             : ListView.builder(
             scrollDirection: Axis.vertical,
             itemCount: curTweets.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                //margin: EdgeInsets.all(4.0),
-                //color: Colors.greenAccent,
                 child: ListTile(
-                  //contentPadding: EdgeInsets.all(10.0),
                   title: new Tweet(curTweets[index]),
                 ),
-              );
-            }),
-        /*child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            //reverse: true,
-            itemCount: CustomDataBase.tweets.length,
-            itemBuilder: (BuildContext ctxt, int index) {
-              return Center(
-                child: new Container(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Tweet(CustomDataBase.tweets.elementAt(index))
-                ),
-              );
-            }),*/
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _addTweet(UserPost(id:0, title:'shototam', body: 'many text', userId: 0));
-        },
-        child: Icon(Icons.add),
+              );})///*/
+            /**
+            : ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: CustomDataBase.tweets.length,
+                itemBuilder: (BuildContext ctxt, int index) {
+                  return Center(
+                    child: new Container(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Tweet(CustomDataBase.tweets.elementAt(index))),
+                  );
+                }),
+        */
       ),
     );
   }

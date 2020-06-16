@@ -25,24 +25,26 @@ class _DetailedTweetState extends State<DetailedTweet> {
     setState(() {
       isLoading = true;
     });
-    final response =
-    await http.get("https://jsonplaceholder.typicode.com/posts/${widget._userPost.id}/comments");
+    final response = await http.get(
+        "https://jsonplaceholder.typicode.com/posts/${widget._userPost.id}/comments");
     if (response.statusCode == 200) {
       curTweets = (json.decode(response.body) as List)
-                .map((data) => new Comment.fromJson(data))
-                .toList();
+          .map((data) => new Comment.fromJson(data))
+          .toList();
       setState(() {
         isLoading = false;
       });
     } else {
-      throw Exception('Failed to load posts');
+      throw Exception('Failed to load comments');
     }
   }
+
   @override
   void initState() {
     super.initState();
     _fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,32 +52,47 @@ class _DetailedTweetState extends State<DetailedTweet> {
         title: Text(widget._userPost.title),
       ),
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.symmetric(horizontal: 5.0),
         child: Column(
           children: [
-            Container(padding: EdgeInsets.all(4.0), color: Colors.green[300], child: Text(widget._userPost.body, style: TextStyle(fontSize: 24),)),
-            Center(
-              child: Container(
-                height: 400,
-                child: isLoading
-                    ? Center(
-                  child: CircularProgressIndicator(),
-                )
-                    : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: curTweets.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.all(4.0),
-                        color: Colors.greenAccent,
-                        child: ListTile(
-                          contentPadding: EdgeInsets.all(10.0),
-                          title: new Text(curTweets[index].body),
-                        ),
-                      );
-                    }),
-              ),
+            Container(
+                padding: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(200, 255, 255, 255),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                child: Text(
+                  widget._userPost.body,
+                  style: TextStyle(fontSize: 24),
+                )),
+            Container(
+              height: 400,
+              child: isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: curTweets.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: EdgeInsets.fromLTRB(0, 10.0, 0, 0),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(200, 255, 255, 255),
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          ),
+                          child: ListTile(
+                            contentPadding: EdgeInsets.all(10.0),
+                            title: new Text(curTweets[index].body),
+                          ),
+                        );
+                      }),
             ),
           ],
         ),
