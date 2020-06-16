@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mytwitter/model/comment.dart';
 
-import 'package:mytwitter/model/mockDB.dart';
+import 'file:///C:/Users/frostrch/AndroidStudioProjects/my_twitter/lib/controller/controllerDB.dart';
 import 'package:mytwitter/model/user_post.dart';
 import 'package:mytwitter/pages/home.dart';
 import 'package:path/path.dart';

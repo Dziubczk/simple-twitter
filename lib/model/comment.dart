@@ -16,6 +16,7 @@ class Comment {
       body: json['body'],
     );
   }
+
   Map<String, dynamic> toMap() {
     return {
       'postId': postId,

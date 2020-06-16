@@ -1,10 +1,9 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:mytwitter/model/mockDB.dart';
+import 'file:///C:/Users/frostrch/AndroidStudioProjects/my_twitter/lib/controller/controllerDB.dart';
 import 'package:mytwitter/model/user_post.dart';
 import 'package:mytwitter/widgets/tweet.dart';
 
@@ -48,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     await _fetchData();
     fromDBTweets = await CustomDataBase.getTweets();
-    if(fromDBTweets!=null) {
+    if (fromDBTweets != null) {
       setState(() {
         isLoadingDB = false;
       });
@@ -69,40 +68,27 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/background.jpg"),
-            fit: BoxFit.cover,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/background.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        height: 8000,
-        child: isLoadingDB
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            ///**
-            : ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: fromDBTweets.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                child: ListTile(
-                  title: new Tweet(fromDBTweets[index]),
-                ),
-              );})///*/
-            /**
-            : ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: CustomDataBase.tweets.length,
-                itemBuilder: (BuildContext ctxt, int index) {
-                  return Center(
-                    child: new Container(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Tweet(CustomDataBase.tweets.elementAt(index))),
-                  );
-                }),
-        */
-      ),
+          height: 8000,
+          child: isLoadingDB
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: fromDBTweets.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      child: ListTile(
+                        title: new Tweet(fromDBTweets[index]),
+                      ),
+                    );
+                  })),
     );
   }
 }

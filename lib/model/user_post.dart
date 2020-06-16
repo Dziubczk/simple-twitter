@@ -1,12 +1,8 @@
-import 'package:mytwitter/model/comment.dart';
-import 'package:mytwitter/model/mockDB.dart';
-
 class UserPost {
   final int id;
   final String title;
   final String body;
   final int userId;
-  //List<Comment> comments;
 
   UserPost({this.id, this.title, this.body, this.userId});
 
@@ -27,6 +23,4 @@ class UserPost {
       'userId': userId,
     };
   }
-
-  //void addCommentsFromDB() {}
 }

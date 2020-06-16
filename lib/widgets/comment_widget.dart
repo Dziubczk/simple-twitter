@@ -5,6 +5,7 @@ import 'package:mytwitter/pages/detailed_tweet.dart';
 
 class CommentWidget extends StatefulWidget {
   final Comment _comment;
+
   CommentWidget(this._comment);
 
   @override
@@ -25,15 +26,22 @@ class _CommentWidgetState extends State<CommentWidget> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget._comment.name, style: TextStyle(fontSize:18, fontWeight: FontWeight.bold),),
-            SizedBox(height: 2.0,),
+            Text(
+              widget._comment.name,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 2.0,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(widget._comment.email),
               ],
             ),
-            SizedBox(height: 8.0,),
+            SizedBox(
+              height: 8.0,
+            ),
             Text(widget._comment.body),
           ],
         ),

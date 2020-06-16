@@ -19,7 +19,7 @@ class DetailedTweet extends StatefulWidget {
 }
 
 class _DetailedTweetState extends State<DetailedTweet> {
-  List<Comment> curTweets;
+  List<Comment> curComments;
   var isLoading = false;
 
   _fetchData() async {
@@ -29,7 +29,7 @@ class _DetailedTweetState extends State<DetailedTweet> {
     final response = await http.get(
         "https://jsonplaceholder.typicode.com/posts/${widget._userPost.id}/comments");
     if (response.statusCode == 200) {
-      curTweets = (json.decode(response.body) as List)
+      curComments = (json.decode(response.body) as List)
           .map((data) => new Comment.fromJson(data))
           .toList();
       setState(() {
@@ -67,9 +67,9 @@ class _DetailedTweetState extends State<DetailedTweet> {
               )
             : ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: curTweets.length,
+                itemCount: curComments.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return CommentWidget(curTweets[index]);
+                  return CommentWidget(curComments[index]);
                 }),
       ),
     );
